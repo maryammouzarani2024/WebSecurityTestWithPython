@@ -20,7 +20,7 @@ common_api_paths = [
 
 # ---------------------- LOGIN HANDLER -------------------------
 def login():
-    login_url = "https://0a7f00dd04935bf681e0d91800c3001c.web-security-academy.net/login"   # change this
+    login_url = "https:your-target/login"   # change this
 
     payload = {
         "username": "wiener",
@@ -106,7 +106,7 @@ def brute_force_api(base_url):
 
 # ======================== MAIN ===============================
 
-start_url = "https://0a7f00dd04935bf681e0d91800c3001c.web-security-academy.net/"
+start_url = "https:your-target/"
 domain = urlparse(start_url).netloc
 
 login()
