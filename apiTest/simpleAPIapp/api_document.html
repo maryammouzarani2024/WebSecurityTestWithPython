@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple REST API Documentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; }
+        code { background: #f4f4f4; padding: 2px 4px; border-radius: 4px; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 4px; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        .endpoint { color: #16a085; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>Simple REST API Documentation</h1>
+    <p>This is a simple REST API example built with Python Flask. All routes are prefixed with <code>/api/users</code>.</p>
+
+    <h2>Base URL</h2>
+    <p><code>http://127.0.0.1:5000/api/users</code></p>
+
+    <h2>Endpoints</h2>
+
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Endpoint</th>
+            <th>Description</th>
+            <th>Request Body</th>
+            <th>Response</th>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td class="endpoint">/api/users</td>
+            <td>Retrieve a list of all users</td>
+            <td>None</td>
+            <td>
+<pre>[
+  { "id": 1, "name": "Alice" , "age": 30 },
+  { "id": 2, "name": "Bob" , "age": 25 }
+]</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td class="endpoint">/api/users/&lt;id&gt;</td>
+            <td>Retrieve a single user by ID</td>
+            <td>None</td>
+            <td>
+<pre>{ "id": 1, "name": "Alice" , "age": 30 }</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td class="endpoint">/api/users</td>
+            <td>Create a new user</td>
+            <td>
+<pre>{
+  "name": "Charlie",
+  "age": 25
+
+
+}</pre>
+            </td>
+            <td>
+<pre>{ "name": "Charlie", "age": 25 }</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td class="endpoint">/api/users/&lt;id&gt;</td>
+            <td>Update a user completely</td>
+            <td>
+<pre>{
+  "name": "Alice Updated",
+  "age": 30
+
+}</pre>
+            </td>
+            <td>
+<pre>{ "id": 1, "name": "Alice Updated", "age": 30 }</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>PATCH</td>
+            <td class="endpoint">/api/users/&lt;id&gt;</td>
+            <td>Update a user partially</td>
+            <td>
+<pre>{
+  "name": "Alice Patched"
+}</pre>
+            </td>
+            <td>
+<pre>{ "id": 1, "name": "Alice Patched", "age": 30 }</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td class="endpoint">/api/users/&lt;id&gt;</td>
+            <td>Delete a user</td>
+            <td>None</td>
+            <td>
+<pre>{ "id": 2, "name": "Bob" , "age": 25 }</pre>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Usage Example (Python)</h2>
+    <pre>
+import requests
+
+BASE = "http://127.0.0.1:5000/api/users"
+
+# GET all users
+users = requests.get(BASE).json()
+print(users)
+
+# POST create user
+new_user = requests.post(BASE, json={"name": "Charlie", "age": 25}).json()
+print(new_user)
+
+# PUT update user
+updated = requests.put(f"{BASE}/1", json={"name": "Alice Updated", "age": 30}).json()
+print(updated)
+
+# PATCH update user
+patched = requests.patch(f"{BASE}/1", json={"name": "Alice Patched"}).json()
+print(patched)
+
+# DELETE user
+deleted = requests.delete(f"{BASE}/2").json()
+print(deleted)
+
+
+    </pre>
+
+    <h2>Notes</h2>
+    <ul>
+        <li>All responses are JSON.</li>
+        <li>Status codes follow REST conventions (200 OK, 201 Created, 404 Not Found, 400 Bad Request).</li>
+        <li>This API uses an in-memory data store; data resets when the server restarts.</li>
+    </ul>
+
+</body>
+</html>
