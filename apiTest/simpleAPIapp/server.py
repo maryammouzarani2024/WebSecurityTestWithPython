@@ -11,13 +11,13 @@ users= {
 #----------- Rest API Endpoints -----------
 
 
-# get all users information
+# get all users information with http://127.0.0.1:5000/api/users
 @app.route("/api/users", methods=["GET"])
 def get_users():
     return jsonify(list(users.values())), 200
 
 
-# get user information by user id
+# get user information by user id with http://127.0.0.1:5000/api/users/<user_id>
 @app.route("/api/users/<int:user_id>", methods=["GET"])
 def get_user(user_id):
     user= users.get(user_id)
@@ -26,7 +26,7 @@ def get_user(user_id):
     else:
         return jsonify({"error": "The requested user does not exist."}), 404
     
-# create a new user
+# create a new user with http://127.0.0.1:5000/api/users
 @app.route("/api/users", methods=["POST"])
 def create_user():
     data= request.get_json()
@@ -38,7 +38,7 @@ def create_user():
     return jsonify(new_user), 201   
 
 
-# update existing user information
+# update existing user information with http://127.0.0.1:5000/api/users/<user_id>
 @app.route("/api/users/<int:user_id>", methods=["PUT"])
 def update_user(user_id):
     user= users.get(user_id)
@@ -47,11 +47,14 @@ def update_user(user_id):
     data= request.get_json()
     if not data:
         return jsonify({"error": "Invalid user data."}), 400    
+    if not all(key in data for key in ("name", "age")):
+        return jsonify({"error": "Both 'name' and 'age' fields are required."}), 400
+   
     user.update({k: v for k, v in data.items() if k in ["name", "age"]})
     return jsonify(user), 200
 
 
-# update existing user information partially
+# update existing user information partially with http://127.0.0.1:5000/api/users/<user_id>
 @app.route("/api/users/<int:user_id>", methods=["PATCH"])
 def patch_user(user_id):
     user= users.get(user_id)
@@ -59,11 +62,13 @@ def patch_user(user_id):
         return jsonify({"error": "The requested user does not exist."}), 404    
     data= request.get_json()
     if not data:
-        return jsonify({"error": "Invalid user data."}), 400    
+        return jsonify({"error": "Invalid user data."}), 400   
+    
     user.update({k: v for k, v in data.items() if k in ["name", "age"]})
     return jsonify(user), 200
 
-# delete a user by user id
+
+# delete a user by user id with http://127.0.0.1:5000/api/users/<user_id>
 @app.route("/api/users/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):
     if user_id in users:
