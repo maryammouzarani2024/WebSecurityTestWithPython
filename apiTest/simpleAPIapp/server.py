@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 
 app=Flask(__name__)
 
@@ -8,7 +8,15 @@ users= {
     2: {"id": 2, "name": "Bob", "age": 25}
 }
 
-#----------- Rest API Endpoints -----------
+
+
+# ----------- Regular route to serve index.html -----------
+@app.route("/")
+def index():
+    return render_template("index.html")  # serves an HTML page
+
+
+#----------- API Endpoints -----------
 
 
 # get all users information with http://127.0.0.1:5000/api/users
