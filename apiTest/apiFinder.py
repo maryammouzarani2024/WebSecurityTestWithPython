@@ -21,7 +21,7 @@ common_api_paths = [
 # ---------------------- LOGIN HANDLER -------------------------
 
 def login():
-    login_url = "https://0a69008203d0313881c961f700240021.web-security-academy.net/login"
+    login_url = "your_login_url_here"  # Replace with the login URL
 
     print("[+] Fetching login page...")
     r = session.get(login_url)
