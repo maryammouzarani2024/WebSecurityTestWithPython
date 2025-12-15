@@ -21,7 +21,7 @@ common_api_paths = [
 # ---------------------- LOGIN HANDLER -------------------------
 
 def login():
-    login_url = "your_login_url_here"  # Replace with the login URL
+    login_url = "https://0aed00a004a009d982ba240100e10064.web-security-academy.net/login"  # Replace with the login URL
 
     print("[+] Fetching login page...")
     r = session.get(login_url)
@@ -33,8 +33,8 @@ def login():
     print("[+] Got CSRF:", csrf)
 
     payload = {
-        "username": "USER",
-        "password": "PASS",
+        "username": "wiener",
+        "password": "peter",
         "csrf": csrf
     }
 
@@ -114,7 +114,7 @@ def brute_force_api(base_url):
 
 # ======================== MAIN ===============================
 
-start_url = "your_target_url_here"  # Replace with the target URL
+start_url = "https://0aed00a004a009d982ba240100e10064.web-security-academy.net/"  # Replace with the target URL
 domain = urlparse(start_url).netloc 
 
 
